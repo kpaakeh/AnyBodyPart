@@ -22,7 +22,7 @@ public final class BodyCommands {
                         var text = Component.literal(p.getGameProfile().name() + ": ")
                             .append(Component.translatable("movement.anybodyparts." + BodyParts.get(p).movement()));
                         for (var part : BodyPart.values()) text.append(" | ").append(Component.translatable(part.key()))
-                            .append(BodyParts.get(p).has(part) ? ": вњ“" : ": Г—");
+                            .append(BodyParts.get(p).has(part) ? ": +" : ": -");
                         return text;
                     }, false);
                     return players.size();

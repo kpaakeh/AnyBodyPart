@@ -17,6 +17,7 @@ public final class SewingNeedleItem extends Item {
     private static final Map<UUID, Stitch> STITCHES = new HashMap<>();
     private static final class Stitch {
         final UUID target;
+        final ServerPlayer patient;
         final BodyPart part;
         final int slot, duration;
         final ItemStack limb;
@@ -24,7 +25,7 @@ public final class SewingNeedleItem extends Item {
         final float actorHealth, targetHealth;
         int elapsed;
         Stitch(ServerPlayer actor, ServerPlayer target, BodyPart part, int slot) {
-            this.target = target.getUUID(); this.part = part; this.slot = slot;
+            this.target = target.getUUID(); this.patient = target; this.part = part; this.slot = slot;
             duration = (int)Math.ceil(BodyConfig.get().sewing.seconds * 20);
             limb = actor.getInventory().getItem(slot).copy();
             actorStart = actor.position(); targetStart = target.position();
@@ -51,12 +52,21 @@ public final class SewingNeedleItem extends Item {
     @Override public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         return target instanceof Player other ? begin(player, other, hand) : InteractionResult.FAIL;
     }
-    public static int findPart(Player actor, BodyPart part) {
+    private static int findPart(Player actor, Player target, BodyPart part) {
+        int fallback = -1;
         for (int slot = 0; slot < actor.getInventory().getNonEquipmentItems().size(); slot++) {
             ItemStack stack = actor.getInventory().getItem(slot);
-            if (stack.getItem() instanceof DetachedPartItem item && item.part() == part && (item instanceof MechanicalPartItem || stack.has(DataComponents.PROFILE))) return slot;
+            if (!(stack.getItem() instanceof DetachedPartItem item) || item.part() != part) continue;
+            if (item instanceof MechanicalPartItem) {
+                if (BodyConfig.get().mechanical.enabled && (BodyConfig.mask(BodyConfig.get().mechanical.disabledParts) & part.bit()) == 0) return slot;
+            } else {
+                var profile = stack.get(DataComponents.PROFILE);
+                if (profile == null) continue;
+                if (BodyConfig.get().sewing.allowForeignParts || profile.partialProfile().id().equals(target.getUUID())) return slot;
+            }
+            if (fallback < 0) fallback = slot;
         }
-        return -1;
+        return fallback;
     }
     private static String denial(ServerPlayer actor, ServerPlayer target, BodyPart part, InteractionHand hand) {
         var config = BodyConfig.get().sewing;
@@ -71,7 +81,7 @@ public final class SewingNeedleItem extends Item {
         if (!actor.onGround() || !target.onGround() || actor.isPassenger() || target.isPassenger() || actor.isInLiquid() || target.isInLiquid()) return "message.anybodyparts.stand_still";
         if (actor != target && (actor.level() != target.level() || actor.distanceToSqr(target) > config.reach * config.reach || !actor.hasLineOfSight(target))) return "message.anybodyparts.out_of_reach";
         if (actor != target && config.requireTargetSneaking && !target.isShiftKeyDown()) return "message.anybodyparts.consent";
-        int slot = findPart(actor, part);
+        int slot = findPart(actor, target, part);
         if (slot < 0) return "message.anybodyparts.need_part";
         if (actor.getInventory().getItem(slot).getItem() instanceof MechanicalPartItem) {
             if (!BodyConfig.get().mechanical.enabled || (BodyConfig.mask(BodyConfig.get().mechanical.disabledParts) & part.bit()) != 0) return "message.anybodyparts.mechanical_disabled";
@@ -89,7 +99,7 @@ public final class SewingNeedleItem extends Item {
         String denied = denial(actor, subject, part, hand);
         if (denied != null) { actor.sendOverlayMessage(Component.translatable(denied)); return InteractionResult.FAIL; }
         if (subject.getAttachedOrElse(BodyParts.CUTTING, 0) != 0) { actor.sendOverlayMessage(Component.translatable("message.anybodyparts.busy")); return InteractionResult.FAIL; }
-        STITCHES.put(actor.getUUID(), new Stitch(actor, subject, part, findPart(actor, part)));
+        STITCHES.put(actor.getUUID(), new Stitch(actor, subject, part, findPart(actor, subject, part)));
         subject.setAttached(BodyParts.CUTTING, part.ordinal() + 1);
         actor.startUsingItem(hand);
         return InteractionResult.CONSUME;
@@ -99,7 +109,7 @@ public final class SewingNeedleItem extends Item {
         Stitch stitch = STITCHES.get(actor.getUUID());
         if (stitch == null) { actor.stopUsingItem(); return; }
         var target = actor.level().getServer().getPlayerList().getPlayer(stitch.target);
-        if (target == null) { cancel(actor); return; }
+        if (target != stitch.patient) { cancel(actor); return; }
         var config = BodyConfig.get().sewing;
         boolean self = actor == target;
         double tolerance = self ? 0.1 : config.movementTolerance;
@@ -141,8 +151,7 @@ public final class SewingNeedleItem extends Item {
     private static void cancel(ServerPlayer actor) {
         Stitch stitch = STITCHES.remove(actor.getUUID());
         if (stitch != null) {
-            var target = actor.level().getServer().getPlayerList().getPlayer(stitch.target);
-            if (target != null) target.setAttached(BodyParts.CUTTING, 0);
+            if (!stitch.patient.isRemoved()) stitch.patient.setAttached(BodyParts.CUTTING, 0);
         }
         actor.stopUsingItem(); actor.sendOverlayMessage(Component.empty());
     }
@@ -154,8 +163,8 @@ public final class SewingNeedleItem extends Item {
         for (UUID id : List.copyOf(STITCHES.keySet())) {
             var actor = server.getPlayerList().getPlayer(id);
             if (actor == null) {
-                var target = server.getPlayerList().getPlayer(STITCHES.remove(id).target);
-                if (target != null) target.setAttached(BodyParts.CUTTING, 0);
+                var patient = STITCHES.remove(id).patient;
+                if (!patient.isRemoved()) patient.setAttached(BodyParts.CUTTING, 0);
             } else if (!actor.isUsingItem() || !actor.getUseItem().is(ModItems.SEWING_NEEDLE)) cancel(actor);
         }
     }

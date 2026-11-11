@@ -45,3 +45,5 @@ fabricApi.configureTests {
     enableClientGameTests = true
     eula = false
 }
+
+tasks.withType(Jar).configureEach { from('LICENSE') }

@@ -118,6 +118,11 @@ public final class BodyConfig {
             if (value.isJsonNull() || value.isJsonArray() != expected.isJsonArray() || value.isJsonObject() != expected.isJsonObject()) {
                 throw new IllegalArgumentException("Неверный тип настройки: " + entry.getKey());
             }
+            if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isNumber() && expected.isJsonPrimitive()
+                && expected.getAsString().matches("-?[0-9]+")) {
+                try { value.getAsBigDecimal().intValueExact(); }
+                catch (ArithmeticException e) { throw new IllegalArgumentException("Ожидалось целое число: " + entry.getKey()); }
+            }
             if (value.isJsonObject()) checkKeys(value.getAsJsonObject(), expected);
             else if (value.isJsonPrimitive() && (value.getAsJsonPrimitive().isBoolean() != expected.getAsJsonPrimitive().isBoolean()
                 || value.getAsJsonPrimitive().isNumber() != expected.getAsJsonPrimitive().isNumber())) {

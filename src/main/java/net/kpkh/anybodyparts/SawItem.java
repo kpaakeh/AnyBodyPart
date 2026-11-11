@@ -18,13 +18,14 @@ public final class SawItem extends Item {
     private static final Map<UUID, Cut> CUTS = new HashMap<>();
     private static final class Cut {
         final UUID target;
+        final ServerPlayer patient;
         final BodyPart part;
         final Vec3 surgeonStart, targetStart;
         final float surgeonHealth, targetHealth, yaw, pitch;
         final int duration;
         int elapsed;
         Cut(ServerPlayer actor, ServerPlayer target, BodyPart part, int duration) {
-            this.target = target.getUUID(); this.part = part; this.duration = duration;
+            this.target = target.getUUID(); this.patient = target; this.part = part; this.duration = duration;
             surgeonStart = actor.position(); targetStart = target.position();
             surgeonHealth = actor.getHealth(); targetHealth = target.getHealth();
             yaw = target.getYRot(); pitch = target.getXRot();
@@ -102,7 +103,7 @@ public final class SawItem extends Item {
         Cut cut = CUTS.get(actor.getUUID());
         if (cut == null) { actor.stopUsingItem(); return; }
         ServerPlayer target = actor.level().getServer().getPlayerList().getPlayer(cut.target);
-        if (target == null) { cancel(actor); return; }
+        if (target != cut.patient) { cancel(actor); return; }
         BodyConfig.Saw config = BodyConfig.get().saw;
         boolean self = actor == target;
         String denied = denial(actor, target, cut.part);
@@ -150,8 +151,7 @@ public final class SawItem extends Item {
     private static void cancel(ServerPlayer actor) {
         Cut cut = CUTS.remove(actor.getUUID());
         if (cut != null) {
-            var target = actor.level().getServer().getPlayerList().getPlayer(cut.target);
-            if (target != null) target.setAttached(BodyParts.CUTTING, 0);
+            if (!cut.patient.isRemoved()) cut.patient.setAttached(BodyParts.CUTTING, 0);
         }
         actor.stopUsingItem();
         actor.sendOverlayMessage(Component.empty());
@@ -165,8 +165,7 @@ public final class SawItem extends Item {
             var actor = server.getPlayerList().getPlayer(id);
             if (actor == null) {
                 Cut cut = CUTS.remove(id);
-                var target = server.getPlayerList().getPlayer(cut.target);
-                if (target != null) target.setAttached(BodyParts.CUTTING, 0);
+                if (!cut.patient.isRemoved()) cut.patient.setAttached(BodyParts.CUTTING, 0);
             }
             else if (!actor.isUsingItem() || !actor.getUseItem().is(ModItems.LIMB_SAW)) cancel(actor);
         }

@@ -8,7 +8,8 @@
     "fabric-client-gametest": [
       "net.kpkh.anybodyparts.BodyPartsGameTest",
       "net.kpkh.anybodyparts.GraftGameTest",
-      "net.kpkh.anybodyparts.MechanicalGameTest"
+      "net.kpkh.anybodyparts.MechanicalGameTest",
+      "net.kpkh.anybodyparts.AuditGameTest"
     ]
   }
 }

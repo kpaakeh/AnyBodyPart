@@ -51,20 +51,6 @@
 
 Без ног можно невысоко подпрыгивать, пока остались другие части кроме головы. Без рук нельзя пользоваться предметами или выбрасывать их через Q, в том числе из инвентаря.
 
-### Достижения и настройки
-
-У мода своя творческая вкладка и ветка достижений за операции, пересадки и механические протезы. По умолчанию смерть восстанавливает родное тело; сервер может отключить восстановление.
-
-В `config/anybodyparts.json` есть русские пояснения, выключатели механик, пилы, пришивания, протезов, отдельных рецептов и достижений, ограничения частей и настройки движения. Изменения применяются командой `/bodyparts reload`. Установленные протезы при отключении сохраняются и возвращают функции после включения. Новые настройки автоматически дополняют старые конфиги.
-
-Администраторы могут управлять частями через команды и меню `/bodyparts menu`. Команды проверяют отдельные разрешения Fabric Permission API. Подробнее: [настройки, управление и разрешения](docs/CONFIGURATION.ru.md), [шаблон конфига](src/main/resources/anybodyparts-default.json).
-
-### Установка
-
-Нужны **Minecraft Java 26.3**, **Java 25**, **Fabric Loader 0.20.1+** и **Fabric API 0.166.2+26.3** для этой версии игры. Установите Fabric API и JAR мода в `mods` **на клиенте и сервере**. Для локальной игры достаточно установки в свой игровой профиль.
-
-Готовую сборку можно получить, собрав исходники — инструкции ниже. Перед удалением мода сохраните резервную копию мира. Если возникла проблема, приложите версию мода, описание ситуации и `logs/latest.log` к [обращению](https://github.com/kpaakeh/AnyBodyPart/issues). Выделенный сервер с двумя клиентами и совместимость со сторонними модами пока отдельно не проверялись.
-
 ## English
 
 Lose limbs, collect detached parts and stitch them back on. Each arm and leg changes what your character can do: one arm cannot draw a bow, one leg means hopping, and losing your torso can turn you into a rolling head. Your head always remains.
@@ -108,48 +94,4 @@ A limb costs one netherite block, three iron ingots, a piston and redstone dust.
 
 Without legs, you can still make small jumps as long as something besides your head remains. Without arms, item use and manual item dropping are disabled, including Q inside the inventory.
 
-### Advancements and configuration
-
-The mod includes a dedicated creative tab and advancements for surgery, transplants and prostheses. Death restores your original body by default; servers can disable this behavior.
-
-The server config, `config/anybodyparts.json`, controls the mod, saw, sewing, mechanical parts, individual recipes, advancements, body-part restrictions and movement. Its explanatory comments use Russian text. Apply changes with `/bodyparts reload`. Disabled prostheses retain their saved data and resume functioning when enabled again. New options are automatically added to existing configs.
-
-Administrators can change body parts with commands or `/bodyparts menu`. Commands use individual Fabric Permission API checks. See the [configuration template](src/main/resources/anybodyparts-default.json) and [detailed Russian documentation](docs/CONFIGURATION.ru.md) for the full settings and permission list.
-
-### Installation
-
-Requires **Minecraft Java 26.3**, **Java 25**, **Fabric Loader 0.20.1+** and **Fabric API 0.166.2+26.3** for this game version. Put Fabric API and the mod JAR into `mods` **on both the client and server**. For single-player, install them in your local game profile.
-
-Build the JAR from source using the instructions below. Back up your world before removing the mod. When reporting a problem, include the mod version, reproduction steps and `logs/latest.log` in an [issue](https://github.com/kpaakeh/AnyBodyPart/issues). A dedicated server with two clients and compatibility with third-party mods have not been separately tested yet.
-
-## Build / Сборка
-
-With JDK 25 selected / С установленной JDK 25:
-
-```sh
-./gradlew build
-```
-
-Windows:
-
-```powershell
-.\gradlew.bat build
-```
-
-Output / Результат: `build/libs/any-body-parts-0.6.4.jar`.
-
-Game integration tests / Игровые проверки:
-
-```sh
-./gradlew runClientGameTest
-```
-
-Tests use a separate world under `build/run/clientGameTest`. They cover body states, surgery, donor persistence, prostheses, recipe switches, permissions, inventory drop restrictions and jumping. / Проверки используют отдельный мир и охватывают состояния тела, операции, донорские данные, протезы, рецепты, права, выбрасывание предметов и прыжки.
-
-## Credits / Авторы
-
-**kpkh** — author / автор. Built with Fabric and Fabric API. Development assisted by OpenAI Codex; the mod icon and tool sprites were generated with OpenAI image generation. Mechanical textures were drawn directly on the Minecraft UV grid. / Разработка с помощью OpenAI Codex; иконка и спрайты инструментов созданы генератором изображений OpenAI. Механические текстуры нарисованы в пиксельной UV-сетке Minecraft.
-
-README layout reference / Пример структуры описания: [Create Slice & Dice on Modrinth](https://modrinth.com/mod/slice-and-dice). All descriptions and screenshots here are for Any Body Parts. / Текст и изображения в этом README относятся к Any Body Parts.
-
-All rights reserved / Все права защищены. See [LICENSE](LICENSE).
+[MIT License](LICENSE)
