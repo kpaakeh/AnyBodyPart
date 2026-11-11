@@ -1,0 +1,9 @@
+{
+  "values": [
+    "anybodyparts:detached_left_arm",
+    "anybodyparts:detached_right_arm",
+    "anybodyparts:detached_left_leg",
+    "anybodyparts:detached_right_leg",
+    "anybodyparts:detached_torso"
+  ]
+}

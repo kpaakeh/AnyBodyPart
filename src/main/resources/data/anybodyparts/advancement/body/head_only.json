@@ -1,0 +1,27 @@
+{
+  "parent": "anybodyparts:body/first_cut",
+  "display": {
+    "icon": {
+      "id": "minecraft:player_head"
+    },
+    "title": {
+      "translate": "advancements.anybodyparts.head_only.title"
+    },
+    "description": {
+      "translate": "advancements.anybodyparts.head_only.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ]
+}

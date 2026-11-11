@@ -1,0 +1,11 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "anybodyparts:item/detached_part",
+    "model": {
+      "type": "anybodyparts:body_part",
+      "part": "right_arm",
+      "mechanical": true
+    }
+  }
+}

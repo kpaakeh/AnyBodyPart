@@ -1,0 +1,27 @@
+{
+  "parent": "anybodyparts:body/first_stitch",
+  "display": {
+    "icon": {
+      "id": "minecraft:string"
+    },
+    "title": {
+      "translate": "advancements.anybodyparts.own_part.title"
+    },
+    "description": {
+      "translate": "advancements.anybodyparts.own_part.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ]
+}

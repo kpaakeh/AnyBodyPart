@@ -1,0 +1,27 @@
+{
+  "parent": "anybodyparts:body/collect_mechanical",
+  "display": {
+    "icon": {
+      "id": "anybodyparts:mechanical_torso"
+    },
+    "title": {
+      "translate": "advancements.anybodyparts.first_mechanical.title"
+    },
+    "description": {
+      "translate": "advancements.anybodyparts.first_mechanical.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ]
+}

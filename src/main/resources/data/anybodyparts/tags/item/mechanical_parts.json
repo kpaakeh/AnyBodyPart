@@ -1,0 +1,9 @@
+{
+  "values": [
+    "anybodyparts:mechanical_left_arm",
+    "anybodyparts:mechanical_right_arm",
+    "anybodyparts:mechanical_left_leg",
+    "anybodyparts:mechanical_right_leg",
+    "anybodyparts:mechanical_torso"
+  ]
+}

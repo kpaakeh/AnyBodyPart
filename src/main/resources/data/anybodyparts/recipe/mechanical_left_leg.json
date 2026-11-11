@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "PI ",
+    "NRI",
+    " I "
+  ],
+  "key": {
+    "N": "minecraft:netherite_block",
+    "I": "minecraft:iron_ingot",
+    "R": "minecraft:redstone",
+    "P": "minecraft:piston"
+  },
+  "result": {
+    "id": "anybodyparts:mechanical_left_leg",
+    "count": 1
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "anybodyparts:feature",
+      "feature": "mechanical_left_leg"
+    }
+  ]
+}

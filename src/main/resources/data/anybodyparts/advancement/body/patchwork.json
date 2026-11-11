@@ -1,0 +1,27 @@
+{
+  "parent": "anybodyparts:body/foreign_part",
+  "display": {
+    "icon": {
+      "id": "anybodyparts:detached_torso"
+    },
+    "title": {
+      "translate": "advancements.anybodyparts.patchwork.title"
+    },
+    "description": {
+      "translate": "advancements.anybodyparts.patchwork.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ]
+}

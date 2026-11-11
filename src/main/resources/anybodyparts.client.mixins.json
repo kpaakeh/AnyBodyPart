@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "package": "net.kpkh.anybodyparts.mixin.client",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "AvatarRenderStateMixin",
+    "AvatarRendererMixin",
+    "PlayerModelMixin",
+    "HumanoidModelMixin",
+    "PlayerItemInHandLayerMixin",
+    "FirstPersonRendererMixin",
+    "LocalPlayerMixin",
+    "MultiPlayerGameModeMixin",
+    "CreativeModeTabMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

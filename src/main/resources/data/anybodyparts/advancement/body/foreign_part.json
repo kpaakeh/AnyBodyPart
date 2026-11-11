@@ -1,0 +1,27 @@
+{
+  "parent": "anybodyparts:body/first_stitch",
+  "display": {
+    "icon": {
+      "id": "anybodyparts:detached_left_leg"
+    },
+    "title": {
+      "translate": "advancements.anybodyparts.foreign_part.title"
+    },
+    "description": {
+      "translate": "advancements.anybodyparts.foreign_part.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ]
+}

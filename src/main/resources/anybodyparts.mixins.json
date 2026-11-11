@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "net.kpkh.anybodyparts.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "PlayerMixin",
+    "AvatarMixin",
+    "LivingEntityMixin",
+    "ServerPlayerGameModeMixin",
+    "ServerPlayerMixin",
+    "PlayerAdvancementsMixin",
+    "AbstractContainerMenuMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

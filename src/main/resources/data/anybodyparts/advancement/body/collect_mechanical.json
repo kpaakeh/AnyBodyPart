@@ -1,0 +1,34 @@
+{
+  "parent": "anybodyparts:body/root",
+  "display": {
+    "icon": {
+      "id": "anybodyparts:mechanical_torso"
+    },
+    "title": {
+      "translate": "advancements.anybodyparts.collect_mechanical.title"
+    },
+    "description": {
+      "translate": "advancements.anybodyparts.collect_mechanical.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#anybodyparts:mechanical_parts"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ]
+}

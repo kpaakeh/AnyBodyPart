@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "anybodyparts-test",
+  "version": "1.0.0",
+  "name": "Any Body Parts integration tests",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-client-gametest": [
+      "net.kpkh.anybodyparts.BodyPartsGameTest",
+      "net.kpkh.anybodyparts.GraftGameTest",
+      "net.kpkh.anybodyparts.MechanicalGameTest"
+    ]
+  }
+}

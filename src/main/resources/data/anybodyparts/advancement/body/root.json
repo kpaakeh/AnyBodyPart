@@ -1,0 +1,60 @@
+{
+  "display": {
+    "icon": {
+      "id": "anybodyparts:limb_saw"
+    },
+    "title": {
+      "translate": "advancements.anybodyparts.root.title"
+    },
+    "description": {
+      "translate": "advancements.anybodyparts.root.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "background": "minecraft:gui/advancements/backgrounds/stone"
+  },
+  "criteria": {
+    "has_tool": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#anybodyparts:tools"
+          }
+        ]
+      }
+    },
+    "has_part": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#anybodyparts:detached_parts"
+          }
+        ]
+      }
+    },
+    "participated": {
+      "trigger": "minecraft:impossible"
+    },
+    "mechanical": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#anybodyparts:mechanical_parts"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_tool",
+      "has_part",
+      "participated",
+      "mechanical"
+    ]
+  ]
+}

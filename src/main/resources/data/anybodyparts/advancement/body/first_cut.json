@@ -1,0 +1,27 @@
+{
+  "parent": "anybodyparts:body/root",
+  "display": {
+    "icon": {
+      "id": "anybodyparts:limb_saw"
+    },
+    "title": {
+      "translate": "advancements.anybodyparts.first_cut.title"
+    },
+    "description": {
+      "translate": "advancements.anybodyparts.first_cut.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ]
+}

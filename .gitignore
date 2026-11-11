@@ -1,0 +1,13 @@
+.gradle/
+build/
+run/
+.idea/
+*.iml
+.vscode/
+
+# Local development notes and private environment files
+MODLOG.md
+MODDING_PLAN.md
+.env
+.env.*
+*.log

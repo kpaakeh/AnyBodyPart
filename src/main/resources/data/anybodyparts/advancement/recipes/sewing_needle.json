@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_iron": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:iron_nugget"
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipes": "anybodyparts:sewing_needle"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_iron",
+      "has_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "anybodyparts:sewing_needle"
+    ]
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "anybodyparts:feature",
+      "feature": "needle"
+    }
+  ]
+}
